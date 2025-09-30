@@ -113,6 +113,30 @@ function addTask(text) {
   render()
 }
 
+function removeTask(id) {
+  const before = tasks.length
+  tasks = tasks.filter(t => t.id !== id)
+  if (tasks.length !== before) {
+    save()
+    render()
+    return true
+  }
+  return false
+}
+
+function toggleCompleted(id) {
+  const t = tasks.find(x => x.id === id)
+  if (!t) return false
+  t.completed = !t.completed
+  save()
+  render()
+  return true
+}
+
+function getTasks() {
+  return tasks.slice()
+}
+
 // init
 document.addEventListener('DOMContentLoaded', () => {
   load()
@@ -141,3 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     render()
   })
 })
+
+// Expose small API for testing or other scripts
+if (typeof window !== 'undefined') {
+  window.addTask = addTask
+  window.removeTask = removeTask
+  window.toggleCompleted = toggleCompleted
+  window.getTasks = getTasks
+  window.loadTasks = load
+}
