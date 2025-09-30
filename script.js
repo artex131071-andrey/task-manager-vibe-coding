@@ -47,6 +47,44 @@ function render() {
     label.className = 'label'
     label.textContent = task.text
 
+    // Inline edit on double click
+    label.addEventListener('dblclick', () => {
+      const prev = task.text
+      const input = document.createElement('input')
+      input.type = 'text'
+      input.value = prev
+      input.className = 'edit-input'
+
+      // Replace label with input and focus
+      li.replaceChild(input, label)
+      input.focus()
+      input.setSelectionRange(0, input.value.length)
+
+      const commit = () => {
+        const v = input.value.trim()
+        if (v) {
+          task.text = v
+          save()
+        } else {
+          // empty value -> revert to previous text (do not delete)
+          task.text = prev
+        }
+        render()
+      }
+
+      input.addEventListener('blur', commit, { once: true })
+
+      input.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter') {
+          input.blur()
+        } else if (ev.key === 'Escape') {
+          // cancel edit
+          task.text = prev
+          render()
+        }
+      })
+    })
+
     const remove = document.createElement('button')
     remove.className = 'remove'
     remove.title = 'Удалить'

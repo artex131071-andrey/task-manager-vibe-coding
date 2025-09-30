@@ -38,6 +38,7 @@ h1{margin:0 0 16px 0;font-size:20px}
 .task-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;margin-bottom:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
 .task-item.completed .label{opacity:0.6;text-decoration:line-through}
 .task-item .label{flex:1}
+.task-item .edit-input{flex:1;padding:8px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:inherit}
 .task-item button{border:0;background:transparent;color:var(--muted);cursor:pointer}
 .task-item .remove{color:var(--danger)}
 .footer{margin-top:12px;color:var(--muted);font-size:13px}
